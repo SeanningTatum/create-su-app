@@ -1,6 +1,6 @@
 {
   "name": "create-su-app",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "license": "MIT",
   "dependencies": {
     "fs-extra": "^9.1.0",
