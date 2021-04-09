@@ -29,8 +29,6 @@ function app() {
     const installedTemplate = isLocalTemplate
       ? path.resolve(process.cwd(), template) // handle local template
       : path.join(__dirname, 'templates', template); 
-
-    console.log(installedTemplate)
     
     // Copy template into folder
     fsExtra.copy(installedTemplate, targetDirectory)
@@ -38,7 +36,7 @@ function app() {
     console.log(``);
     console.log(`Quickstart: `);
     console.log(``);
-    console.log(`  cd ${targetDirectory}`);
+    console.log(`  cd ./${name}`);
     console.log(`  yarn install && yarn start`);
     console.log(``);
   } catch (error) {
