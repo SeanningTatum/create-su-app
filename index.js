@@ -7,15 +7,18 @@ const yargsParser = require('yargs-parser')
 const fsExtra = require('fs-extra')
 
 function validateArgs(args) {
-  const {template, _} = yargsParser(args)
+  const {template, target, _} = yargsParser(args)
 
   if (!template) {
     console.log("--template is missing from args")
   }
 
+  const targetDirectoryRelative = target || _[2];
+  const targetDirectory = path.resolve(process.cwd(), targetDirectoryRelative);
+
   const name  = _[2];
 
-  return {template, name}
+  return {template, name, targetDirectory}
 }
 
 function getDirectories(path) {
@@ -26,24 +29,17 @@ function getDirectories(path) {
 
 function app() {
   try {
-    const {template, name} = validateArgs(process.argv)
+    const {template, name, targetDirectory} = validateArgs(process.argv)
 
-    console.log(process.cwd())
+    const isLocalTemplate = template.startsWith('.'); // must start with a `.` to be considered local
+    const installedTemplate = isLocalTemplate
+      ? path.resolve(process.cwd(), template) // handle local template
+      : path.join(targetDirectory, 'node_modules', template); 
 
-    const directories = getDirectories('templates');
-  
-    // Check if template exists
-    if (!directories.includes(template)) {
-      console.error('Template does not exist!')
-      process.exit(1)
-    }
-  
-    const targetDirectory = path.join(process.cwd(), name)
-    fs.mkdirSync(targetDirectory)
-    const templatePath = path.resolve(process.cwd(), 'templates', template)
-  
+    console.log(installedTemplate)
+    
     // Copy template into folder
-    fsExtra.copy(templatePath, targetDirectory)
+    fsExtra.copy(installedTemplate, targetDirectory)
 
     console.error(`An error has occurred`)
 
