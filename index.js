@@ -21,12 +21,6 @@ function validateArgs(args) {
   return {template, name, targetDirectory}
 }
 
-function getDirectories(path) {
-  return fs.readdirSync(path).filter(function (file) {
-    return fs.statSync(path + '/' + file).isDirectory();
-  });
-}
-
 function app() {
   try {
     const {template, name, targetDirectory} = validateArgs(process.argv)
@@ -34,14 +28,12 @@ function app() {
     const isLocalTemplate = template.startsWith('.'); // must start with a `.` to be considered local
     const installedTemplate = isLocalTemplate
       ? path.resolve(process.cwd(), template) // handle local template
-      : path.join('templates', name); 
+      : path.join(__dirname, 'templates', template); 
 
     console.log(installedTemplate)
     
     // Copy template into folder
     fsExtra.copy(installedTemplate, targetDirectory)
-
-    console.error(`An error has occurred`)
 
     console.log(``);
     console.log(`Quickstart: `);
