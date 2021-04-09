@@ -77,8 +77,5 @@
     "*.ts": "eslint --fix",
     "*.tsx": "eslint --fix",
     "*.js": "eslint --fix"
-  },
-  "bin": {
-    "create-su-app": "./index.js"
   }
 }

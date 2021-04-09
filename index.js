@@ -22,22 +22,37 @@ function getDirectories(path) {
 }
 
 function app() {
-  const {template, name} = validateArgs(process.argv)
+  try {
+    const {template, name} = validateArgs(process.argv)
 
-  const directories = getDirectories('./templates');
+    const directories = getDirectories('./templates');
+  
+    // Check if template exists
+    if (!directories.includes(template)) {
+      console.error('Template does not exist!')
+      process.exit(1)
+    }
+  
+    const targetDirectory = path.join(process.cwd(), name)
+    fs.mkdirSync(targetDirectory)
+    const templatePath = path.resolve(process.cwd(), 'templates', template)
+  
+    // Copy template into folder
+    fsExtra.copy(templatePath, targetDirectory)
 
-  // Check if template exists
-  if (!directories.includes(template)) {
-    console.error('Template does not exist!')
-    process.exit(1)
+    console.error(`An error has occurred`)
+
+    console.log(``);
+    console.log(colors.bold(colors.underline(`Quickstart:`)));
+    console.log(``);
+    console.log(`  cd ${targetDirectory}`);
+    console.log(`  yarn install && yarn start`);
+    console.log(``);
+  } catch (error) {
+    console.error(`An error has occurred`)
+    console.error(error)
   }
 
-  const targetDirectory = path.join(process.cwd(), name)
-  fs.mkdirSync(targetDirectory)
-  const templatePath = path.resolve(process.cwd(), 'templates', template)
-
-  // Copy template into folder
-  fsExtra.copy(templatePath, targetDirectory)
 }
 
 app()
