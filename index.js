@@ -34,7 +34,7 @@ function app() {
     const isLocalTemplate = template.startsWith('.'); // must start with a `.` to be considered local
     const installedTemplate = isLocalTemplate
       ? path.resolve(process.cwd(), template) // handle local template
-      : path.join(targetDirectory, 'node_modules', template); 
+      : path.join('templates', name); 
 
     console.log(installedTemplate)
     
