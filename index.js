@@ -28,7 +28,9 @@ function app() {
   try {
     const {template, name} = validateArgs(process.argv)
 
-    const directories = getDirectories('./templates');
+    console.log(process.cwd())
+
+    const directories = getDirectories('templates');
   
     // Check if template exists
     if (!directories.includes(template)) {
