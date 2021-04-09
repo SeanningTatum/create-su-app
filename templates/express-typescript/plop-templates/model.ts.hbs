@@ -1,0 +1,13 @@
+import mongoose, { Schema, Document } from 'mongoose';
+
+export interface I{{pascalCase name}} extends Document {
+    // TODO: Add properties 
+    sample: string;
+}
+
+const {{pascalCase name}}Schema = new Schema({
+  // TODO: Add properties 
+  sample: { type: String, required: true },
+});
+
+export default mongoose.model<I{{pascalCase name}}>('{{pascalCase name}}', {{pascalCase name}}Schema);
