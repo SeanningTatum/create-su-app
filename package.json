@@ -1,7 +1,6 @@
 {
   "name": "create-su-app",
-  "version": "1.0.1",
-  "main": "index.js",
+  "version": "1.0.4",
   "license": "MIT",
   "dependencies": {
     "fs-extra": "^9.1.0",
@@ -11,6 +10,6 @@
     "access": "public"
   },
   "bin": {
-    "create-su-app": "index.js"
+    "create-su-app": "./index.js"
   }
 }
