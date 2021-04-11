@@ -1,44 +1,32 @@
 #!/usr/bin/env node
 'use strict';
 
-const fs = require('fs')
-const path = require('path')
-const yargsParser = require('yargs-parser')
 const fsExtra = require('fs-extra')
+const {
+  validateArgs, 
+  printSuccessMessage, 
+  getTemplateContent, 
+  installProject, 
+  checkIfNodeIsValid,
+  initializeGit,
+} = require('./utils')
 
-function validateArgs(args) {
-  const {template, target, _} = yargsParser(args)
+async function app() {
 
-  if (!template) {
-    console.log("--template is missing from args")
-  }
+  checkIfNodeIsValid()
 
-  const targetDirectoryRelative = target || _[2];
-  const targetDirectory = path.resolve(process.cwd(), targetDirectoryRelative);
-
-  const name  = _[2];
-
-  return {template, name, targetDirectory}
-}
-
-function app() {
   try {
-    const {template, name, targetDirectory} = validateArgs(process.argv)
+    const {templateName, name, targetDirectory} = validateArgs(process.argv)
 
-    const isLocalTemplate = template.startsWith('.'); // must start with a `.` to be considered local
-    const installedTemplate = isLocalTemplate
-      ? path.resolve(process.cwd(), template) // handle local template
-      : path.join(__dirname, 'templates', template); 
-    
-    // Copy template into folder
-    fsExtra.copy(installedTemplate, targetDirectory)
+    const template = getTemplateContent(templateName)
 
-    console.log(``);
-    console.log(`Quickstart: `);
-    console.log(``);
-    console.log(`  cd ./${name}`);
-    console.log(`  yarn install && yarn start`);
-    console.log(``);
+    await fsExtra.copy(template, targetDirectory)
+
+    await initializeGit(targetDirectory)
+
+    await installProject(targetDirectory)
+
+    printSuccessMessage(name)
   } catch (error) {
     console.error(`An error has occurred`)
     console.error(error)
@@ -46,15 +34,6 @@ function app() {
 
 }
 
-const currentVersion = process.versions.node;
-const requiredMajorVersion = parseInt(currentVersion.split('.')[0], 10);
-const minimumMajorVersion = 10;
-
-if (requiredMajorVersion < minimumMajorVersion) {
-  console.error(`Node.js v${currentVersion} is out of date and unsupported!`);
-  console.error(`Please use Node.js v${minimumMajorVersion} or higher.`);
-  process.exit(1);
-}
 
 
 app()

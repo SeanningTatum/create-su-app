@@ -1,9 +1,11 @@
 {
   "name": "create-su-app",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "license": "MIT",
   "dependencies": {
+    "execa": "^5.0.0",
     "fs-extra": "^9.1.0",
+    "kleur": "^4.1.4",
     "yargs-parser": "^20.2.7"
   },
   "publishConfig": {
@@ -11,5 +13,8 @@
   },
   "bin": {
     "create-su-app": "./index.js"
+  },
+  "engines": {
+    "node": ">=10.0.0"
   }
 }
