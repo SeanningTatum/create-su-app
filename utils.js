@@ -2,7 +2,6 @@ const path = require('path')
 const yargsParser = require('yargs-parser')
 const colors = require('kleur');
 const execa = require('execa');
-const { execSync } = require('child_process');
 
 function validateArgs(args) {
   const {template, target, _, verbose = false} = yargsParser(args)
@@ -84,7 +83,7 @@ async function installProject(targetDirectory, verbose) {
   console.log(`\n  - Installing packages with yarn. This might take a couple of minutes\n`);
 
   try {
-    await execa('yarn', ['install'], {cwd: targetDirectory, stdio: verbose ? 'inherit' : 'ignore'})
+    await execa('yarn', ['install'], {cwd: targetDirectory, stdio: verbose ? 'inherit' : 'pipe'})
   } catch (error) {
     console.log(`  - ${colors.yellow('Could not install with yarn.')}`);
   }
