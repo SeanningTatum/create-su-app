@@ -5,7 +5,7 @@ const execa = require('execa');
 const { execSync } = require('child_process');
 
 function validateArgs(args) {
-  const {template, target, _} = yargsParser(args)
+  const {template, target, _, verbose = false} = yargsParser(args)
 
   if (!template) {
     console.log("--template is missing from args")
@@ -16,7 +16,7 @@ function validateArgs(args) {
 
   const name  = _[2];
 
-  return {templateName: template, name, targetDirectory}
+  return {templateName: template, name, targetDirectory, verbose}
 }
 
 function formatCommand(command, description) {
@@ -80,11 +80,11 @@ async function initializeGit(targetDirectory) {
   return
 }
 
-async function installProject(targetDirectory) {
+async function installProject(targetDirectory, verbose) {
   console.log(`\n  - Installing packages with yarn. This might take a couple of minutes\n`);
 
   try {
-    await execa('yarn', ['install'], {cwd: targetDirectory, stdio: 'inherit'})
+    await execa('yarn', ['install'], {cwd: targetDirectory, stdio: verbose ? 'inherit' : 'ignore'})
   } catch (error) {
     console.log(`  - ${colors.yellow('Could not install with yarn.')}`);
   }

@@ -16,15 +16,17 @@ async function app() {
   checkIfNodeIsValid()
 
   try {
-    const {templateName, name, targetDirectory} = validateArgs(process.argv)
+    const {templateName, name, targetDirectory, verbose} = validateArgs(process.argv)
 
     const template = getTemplateContent(templateName)
+
+    console.log(verbose)
 
     await fsExtra.copy(template, targetDirectory)
 
     await initializeGit(targetDirectory)
 
-    await installProject(targetDirectory)
+    await installProject(targetDirectory, verbose)
 
     printSuccessMessage(name)
   } catch (error) {
