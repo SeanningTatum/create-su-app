@@ -20,8 +20,6 @@ async function app() {
 
     const template = getTemplateContent(templateName)
 
-    console.log(verbose)
-
     await fsExtra.copy(template, targetDirectory)
 
     await initializeGit(targetDirectory)
