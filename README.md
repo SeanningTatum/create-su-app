@@ -1,5 +1,17 @@
 # create-su-app 
 
+# Usage
+
+```zsh
+npx create-su-app <dir> --template <template-name>
+```
+
+Example
+
+```zsh
+npx create-su-app new-project --template primsa-graphql 
+```
+
 # Available Templates
 
 ```bash
