@@ -58,8 +58,6 @@ function getTemplateContent(template) {
     ? path.resolve(process.cwd(), template) // handle local template
     : path.join(__dirname, 'templates', template); 
 
-  console.log(templatePath)
-
   return templatePath
 }
 
