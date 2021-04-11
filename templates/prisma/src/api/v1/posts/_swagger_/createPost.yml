@@ -1,0 +1,41 @@
+paths:
+  /api/v1/post/{userId}:
+    post:
+      tags: [Post]
+      summary: Create Post
+      parameters:
+        - in: path
+          name: userId
+          schema:
+            type: string
+          description: The ID of the user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - title
+                - categoryName
+              properties:
+                title:
+                  type: string
+                content:
+                  type: string
+                categoryName:
+                  type: string
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/PostResponse"
+        400:
+          description: Invalid Body or Params
+        401:
+          description: Unauthorized, Bearer Token is required
+        422:
+          description: User is already created
+        500:
+          description: Internal Server Error

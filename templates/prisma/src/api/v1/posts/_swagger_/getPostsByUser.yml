@@ -1,0 +1,28 @@
+paths:
+  /api/v1/post/{userId}:
+    get:
+      tags: [Post]
+      summary: Fetch posts by User
+      parameters:
+        - in: path
+          name: userId
+          schema:
+            type: number
+          description: The ID of the user
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/responses/PostWithCategoryArrayResponse"
+        400:
+          description: Invalid Body or Params
+        401:
+          description: Unauthorized, Bearer Token is required
+        422:
+          description: User is already created
+        500:
+          description: Internal Server Error

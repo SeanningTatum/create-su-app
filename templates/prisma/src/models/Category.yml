@@ -1,0 +1,38 @@
+components:
+  schemas:
+    Category:
+      title: Category
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: number
+          format: id
+        name:
+          type: string
+
+  responses:
+    CategoryResponse:
+      title: Category
+      type: object
+      properties:
+        code:
+          type: number
+        message:
+          type: string
+        body:
+          $ref: "#/components/schemas/Category"
+    CategoryArrayResponse:
+      title: CategoryArrayResponse
+      type: object
+      properties:
+        code:
+          type: number
+        message:
+          type: string
+        body:
+          type: array
+          items:
+            $ref: "#/components/schemas/Category"

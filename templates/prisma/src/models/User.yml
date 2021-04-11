@@ -1,0 +1,41 @@
+components:
+  schemas:
+    User:
+      title: User
+      type: object
+      required:
+        - id
+        - email
+      properties:
+        id:
+          type: number
+          format: id
+        email:
+          type: string
+          format: email
+        name:
+          type: string
+
+  responses:
+    UserResponse:
+      title: UserResponse
+      type: object
+      properties:
+        code:
+          type: number
+        message:
+          type: string
+        body:
+          $ref: "#/components/schemas/User"
+    UserArrayResponse:
+      title: UserArrayResponse
+      type: object
+      properties:
+        code:
+          type: number
+        message:
+          type: string
+        body:
+          type: array
+          items:
+            $ref: "#/components/schemas/User"
