@@ -1,0 +1,19 @@
+import React from 'react';
+
+export interface {{pascalCase name}}Props {
+}
+
+// MARK:- Render
+const {{pascalCase name}}: React.FC<{{pascalCase name}}Props> = (props) => (
+  <Container type="button" {...props}>
+    {{pascalCase name}} Base Component
+  </Container>
+);
+
+// MARK:- Styles
+export const Container = styled.div<>`
+`;
+
+export default {{pascalCase name}};
+
+
