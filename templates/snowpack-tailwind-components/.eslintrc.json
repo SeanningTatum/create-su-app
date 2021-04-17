@@ -1,0 +1,71 @@
+{
+    "extends": [
+      "@kensho-technologies/eslint-config"
+    ],
+    "plugins": ["react", "@typescript-eslint", "prettier", "import", "sort-exports"],
+    "env": {
+      "browser": true,
+      "jasmine": true,
+      "jest": true,
+      "node": true
+    },
+    "rules": {
+      "@typescript-eslint/no-use-before-define": 0,
+      "@typescript-eslint/no-inferrable-types": 0,
+      "import/no-named-as-default": 0,
+      "global-require": 1,
+      "class-methods-use-this": 0,
+      "prefer-promise-reject-errors": 0,
+      "react/destructuring-assignment": 0,
+      "import/prefer-default-export": 0,
+      "max-classes-per-file": 0,
+      "prettier/prettier": ["error", { "singleQuote": true }],
+      "@typescript-eslint/no-unused-vars": 1,
+      "@typescript-eslint/ban-ts-comment": "off",
+      "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/no-empty-interface": "off",
+      "import/no-unresolved": "off",
+      "import/order": [
+        "error",
+        {
+          "groups": ["builtin", "external", "internal"],
+          "pathGroups": [
+            {
+              "pattern": "react",
+              "group": "external",
+              "position": "before"
+            }
+          ],
+          "pathGroupsExcludedImportTypes": ["react"],
+          "newlines-between": "always",
+          "alphabetize": {
+            "order": "asc",
+            "caseInsensitive": true
+          }
+        }
+      ],
+      "sort-exports/sort-exports": [
+        "error", 
+        {
+          "sortDir": "asc"
+        }
+      ]
+    },
+    "settings": {
+      "react": {
+        "pragma": "React",
+        "version": "detect"
+      },
+      "import/parsers": {
+        "@typescript-eslint/parser": [".ts", ".tsx", ".d.ts"]
+      },
+      "import/resolver": {
+        "node": {
+          "extensions": [".js", ".jsx", ".ts", ".tsx", ".d.ts"]
+        },
+        "typescript": {}
+      }
+    },
+    "parser": "@typescript-eslint/parser"
+}
+

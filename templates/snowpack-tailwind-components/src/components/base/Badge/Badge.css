@@ -1,0 +1,13 @@
+.badge {
+  @apply 
+    ml-0.5 
+    h-4 
+    w-4 
+    flex-shrink-0 
+    rounded-full 
+    inline-flex 
+    items-center 
+    justify-center 
+    focus:outline-none 
+    focus:text-white
+}
