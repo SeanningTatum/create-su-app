@@ -31,7 +31,6 @@ async function app() {
     console.error(`An error has occurred`)
     console.error(error)
   }
-
 }
 
 
