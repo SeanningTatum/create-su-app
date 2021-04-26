@@ -12,44 +12,30 @@ export default {
 
 const Template: Story<ButtonProps> = (args) => <Button {...args} />;
 
-export const Default = Template.bind({});
-Default.args = {
-  children: 'Label',
-  appearance: 'default',
-};
-
 export const Primary = Template.bind({});
 Primary.args = {
-  children: 'Label',
-  appearance: 'primary',
+  children: 'Button Text',
+  size: 'base',
+  variant: 'primary',
 };
 
-export const Warning = Template.bind({});
-Warning.args = {
-  children: 'Label',
-  appearance: 'warning',
+export const Secondary = Template.bind({});
+Secondary.args = {
+  children: 'Button Text',
+  size: 'base',
+  variant: 'secondary',
 };
 
-export const Disabled = Template.bind({});
-Disabled.args = {
-  children: 'Label',
-  appearance: 'disabled',
+export const White = Template.bind({});
+White.args = {
+  children: 'Button Text',
+  size: 'base',
+  variant: 'white',
 };
 
-export const Danger = Template.bind({});
-Danger.args = {
-  children: 'Label',
-  appearance: 'danger',
-};
-
-export const Subtle = Template.bind({});
-Subtle.args = {
-  children: 'Label',
-  appearance: 'subtle',
-};
-
-export const Selected = Template.bind({});
-Selected.args = {
-  children: 'Label',
-  appearance: 'selected',
+export const Rounded = Template.bind({});
+Rounded.args = {
+  children: 'Button Text',
+  size: 'base',
+  variant: 'round',
 };

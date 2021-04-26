@@ -7,7 +7,6 @@ import Badge, { BadgeProps } from './Badge';
 
 const props: BadgeProps = {
   children: 'Hello',
-  appearance: 'default',
 };
 
 describe('<Badge>', () => {

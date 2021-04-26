@@ -1,64 +1,73 @@
 import React from 'react';
 
-import styled from '@emotion/styled';
+import './Button.css';
 
-import theme from '@app/config/theme';
+import classNames from '@app/utils/classNames';
 
-// MARK:- Props and Types
-type ButtonAppearance =
-  | 'default'
-  | 'primary'
-  | 'warning'
-  | 'disabled'
-  | 'danger'
-  | 'subtle'
-  | 'selected';
-
+type ButtonVariant = 'primary' | 'secondary' | 'white' | 'round';
+type ButtonSize = 'xs' | 'sm' | 'base' | 'lg' | 'xl';
 export interface ButtonProps {
   onClick: () => void;
   children?: React.ReactNode;
-  appearance: ButtonAppearance;
+  variant?: ButtonVariant;
+  size?: ButtonSize;
 }
 
 // MARK:- Render
-function Button(props: ButtonProps): JSX.Element {
+function Button({
+  variant = 'primary',
+  size = 'base',
+  children,
+  ...props
+}: ButtonProps): JSX.Element {
   return (
-    <StyledButton type="button" {...props}>
-      {props.children}
-    </StyledButton>
+    <button
+      type="button"
+      onClick={props.onClick}
+      className={classNames(
+        'button',
+        Padding[size],
+        Background[variant],
+        Text[variant],
+        Padding[size],
+        FontSize[size],
+      )}
+    >
+      {children}
+    </button>
   );
 }
 
+const Padding: Record<ButtonSize, string> = {
+  xs: 'px-2.5 py-1.5',
+  sm: 'px-3 py-2',
+  base: 'px-4 py-2',
+  lg: 'px-4 py-2',
+  xl: 'px-6 py-3',
+};
+
+const FontSize: Record<ButtonSize, string> = {
+  xs: 'text-xs',
+  sm: 'text-sm',
+  base: 'text-sm',
+  lg: 'text-base',
+  xl: 'text-base',
+};
+
+const Text: Record<ButtonVariant, string> = {
+  primary: 'text-white bg-indigo-600 hover:bg-indigo-700',
+  secondary: 'text-indigo-700 bg-indigo-100 hover:bg-indigo-200',
+  white: 'text-gray-700 bg-white border-gray-300',
+  round: 'text-white bg-indigo-600 hover:bg-indigo-700 rounded-full',
+};
+
+const Background: Record<ButtonVariant, string> = {
+  primary: 'bg-indigo-600 hover:bg-indigo-700',
+  secondary: 'bg-indigo-100 hover:bg-indigo-200',
+  white: ' bg-white border-gray-300',
+  round: 'bg-indigo-600 hover:bg-indigo-700 rounded-full',
+};
+
 // MARK:- Styles
-
-const BackgroundColor: Record<ButtonAppearance, string> = {
-  default: theme.colors.neutral.N20A,
-  primary: theme.colors.blue.B400,
-  warning: theme.colors.yellow.Y300,
-  disabled: theme.colors.neutral.N20A,
-  danger: theme.colors.red.R400,
-  selected: theme.colors.neutral.N700,
-  subtle: theme.colors.others.clickable,
-};
-
-const TextColor: Record<ButtonAppearance, string> = {
-  default: theme.colors.neutral.N500,
-  primary: theme.colors.neutral.N0,
-  warning: theme.colors.neutral.N800,
-  disabled: theme.colors.neutral.N70,
-  danger: theme.colors.neutral.N0,
-  selected: theme.colors.neutral.N0,
-  subtle: theme.colors.neutral.N500,
-};
-
-export const StyledButton = styled.button<{ appearance: ButtonAppearance }>`
-  padding: 8px 16px;
-  border-radius: 3px;
-  font-weight: 500;
-  font-size: 14px;
-
-  background-color: ${({ appearance }) => BackgroundColor[appearance]};
-  color: ${({ appearance }) => TextColor[appearance]};
-`;
 
 export default Button;

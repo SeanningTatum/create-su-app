@@ -1,34 +1,36 @@
 import React from 'react';
 
-import styled from '@emotion/styled';
+import classNames from '@app/utils/classNames';
 
-import { StatusApproved } from '@app/components/svg';
+type AvatarVariant = 'rounded' | 'circular';
+type NotificationSide = 'top' | 'bottom';
+type AvatarSize = 6 | 8 | 12 | 14 | 16;
 
-type AvatarSize = 'large' | 'default' | 'small' | 'xsmall';
-type AvatarAppearance = 'square' | 'circular';
-type AvatarStatus = 'approved' | 'default';
-type AvatarPresence = 'online' | 'default';
 export interface AvatarProps {
-  appearance: AvatarAppearance;
+  variant?: AvatarVariant;
   size: AvatarSize;
-  status?: AvatarStatus;
-  presence?: AvatarPresence;
+  notificationSide?: NotificationSide;
+  statusClassName?: string;
+  placeholderIcon?: boolean;
   imgUrl?: string;
-  name: string;
+  name?: string;
 }
 
 // MARK:- Render
 function Avatar(props: AvatarProps): JSX.Element {
   const {
-    size = 'default',
-    appearance = 'circular',
-    status = 'default',
-    presence = 'default',
+    size = 8,
+    variant = 'circular',
     imgUrl,
+    notificationSide,
     name,
+    statusClassName = '',
+    placeholderIcon,
   } = props;
 
   function getInitials(): string {
+    if (!name) return '';
+
     const nameArray = name.split(' ');
 
     const firstName = nameArray[0];
@@ -37,67 +39,99 @@ function Avatar(props: AvatarProps): JSX.Element {
     return firstName[0].toUpperCase() + lastName[0].toUpperCase();
   }
 
-  function svgSize(): number {
-    if (size === 'large') {
-      return 15;
-    }
-
-    if (size === 'small') {
-      return 12;
-    }
-
-    return 14;
+  // Placeholder
+  if (placeholderIcon) {
+    return (
+      <span
+        className={classNames(
+          'inline-block rounded-full overflow-hidden bg-gray-100',
+          Size[size],
+        )}
+      >
+        <svg
+          className="h-full w-full text-gray-300"
+          fill="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+        </svg>
+      </span>
+    );
   }
 
-  return (
-    <Container
-      size={size}
-      appearance={appearance}
-      className="flex items-center justify-center relative"
-    >
-      {status === 'approved' && (
-        <StatusApproved
-          height={svgSize()}
-          width={svgSize()}
-          className="absolute -right-1 rounded-full -top-0.5"
-        />
-      )}
+  // Initials
+  if (name && !imgUrl) {
+    return (
+      <span
+        className={classNames(
+          'inline-flex items-center justify-center rounded-full bg-gray-500',
+          Size[size],
+        )}
+      >
+        <span
+          className={classNames(
+            'font-medium leading-none text-white',
+            FontSize[size],
+          )}
+        >
+          {getInitials()}
+        </span>
+      </span>
+    );
+  }
 
-      {!imgUrl ? (
-        <h1 className="font-medium">{getInitials()}</h1>
-      ) : (
+  // Default with Image
+  return (
+    <div>
+      <span className="inline-block relative">
         <img
+          className={classNames(
+            variant === 'rounded' ? 'rounded-md' : 'rounded-full',
+            Size[size],
+          )}
           src={imgUrl}
-          alt="avatar"
-          className={`h-full w-full ${
-            appearance === 'circular' && 'rounded-full'
-          }`}
+          alt=""
         />
-      )}
-    </Container>
+        {notificationSide && (
+          <span
+            className={classNames(
+              'absolute right-0 block rounded-full ring-2 ring-white',
+              AvatarSize[size],
+              variant === 'rounded' ? 'transform translate-x-1/2' : '',
+              notificationSide === 'top' ? '-translate-y-1/2 top-0' : '',
+              notificationSide === 'bottom' ? 'translate-x-1/2 bottom-0' : '',
+              statusClassName || 'bg-red-400',
+            )}
+          />
+        )}
+      </span>
+    </div>
   );
 }
 
 // MARK:- Styles
-
-const AvatarSizeMap: Record<AvatarSize, string> = {
-  large: '40px',
-  default: '32px',
-  small: '24px',
-  xsmall: '16px',
+const FontSize: Record<AvatarSize, string> = {
+  '6': 'text-xs',
+  '8': 'text-sm',
+  '12': 'text-medium',
+  '14': 'text-lg',
+  '16': 'text-xl',
 };
 
-export const Container = styled.div<{
-  size: AvatarSize;
-  appearance: AvatarAppearance;
-}>`
-  height: ${({ size }) => AvatarSizeMap[size]};
-  width: ${({ size }) => AvatarSizeMap[size]};
-  border-radius: ${({ appearance }) =>
-    appearance === 'circular' ? '64px' : '3px'};
-  background: ${({ theme }) => theme.colors.blue.B400};
-  color: ${({ theme }) => theme.colors.neutral.N0};
-  font-size: 14px;
-`;
+const Size: Record<AvatarSize, string> = {
+  '6': 'h-6 w-6',
+  '8': 'h-8 w-8',
+  '12': 'h-12 w-12',
+  '14': 'h-14 w-14',
+  '16': 'h-16 w-16',
+};
+
+const AvatarSize: Record<AvatarSize, string> = {
+  '6': 'h-1.5 w-1.5',
+  '8': 'h-2 w-2',
+  '12': 'h-2.5 w-2.5',
+  '14': 'h-3.5 w-3.5',
+  '16': 'h-4 w-4',
+};
 
 export default Avatar;

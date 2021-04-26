@@ -13,44 +13,68 @@ const Template: Story<AvatarProps> = (args) => <Avatar {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  name: 'Sean Urgel',
-  size: 'default',
-  appearance: 'circular',
-  status: 'default',
-};
-
-export const Square = Template.bind({});
-Square.args = {
-  name: 'Sean Urgel',
-  size: 'default',
-  appearance: 'square',
-  status: 'default',
-};
-
-export const WithImage = Template.bind({});
-WithImage.args = {
-  name: 'Sean Urgel',
-  size: 'default',
-  appearance: 'circular',
-  status: 'default',
+  size: 12,
+  variant: 'circular',
   imgUrl:
-    'https://www.netliteracy.org/wp-content/uploads/2020/07/Capture-3-768x758.png',
+    'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
 };
 
-export const Approved = Template.bind({});
-Approved.args = {
-  name: 'Sean Urgel',
-  size: 'default',
-  appearance: 'circular',
-  status: 'approved',
-};
-
-export const ApprovedWithImage = Template.bind({});
-ApprovedWithImage.args = {
-  name: 'Sean Urgel',
-  size: 'default',
-  appearance: 'circular',
-  status: 'approved',
+export const Rounded = Template.bind({});
+Rounded.args = {
+  size: 12,
+  variant: 'rounded',
   imgUrl:
-    'https://www.netliteracy.org/wp-content/uploads/2020/07/Capture-3-768x758.png',
+    'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+};
+
+export const CircularWithNotificationTop = Template.bind({});
+CircularWithNotificationTop.args = {
+  size: 12,
+  variant: 'circular',
+  notificationSide: 'top',
+  imgUrl:
+    'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+  statusClassName: 'bg-red-400',
+};
+
+export const CircularWithNotificationBottom = Template.bind({});
+CircularWithNotificationBottom.args = {
+  size: 12,
+  notificationSide: 'bottom',
+  variant: 'circular',
+  imgUrl:
+    'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+  statusClassName: 'bg-red-400',
+};
+
+export const RoundedWithNotificationBottom = Template.bind({});
+RoundedWithNotificationBottom.args = {
+  size: 12,
+  notificationSide: 'bottom',
+  variant: 'rounded',
+  imgUrl:
+    'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+  statusClassName: 'bg-red-400',
+};
+
+export const RoundedWithNotificationTop = Template.bind({});
+RoundedWithNotificationTop.args = {
+  size: 12,
+  notificationSide: 'top',
+  variant: 'rounded',
+  imgUrl:
+    'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+  statusClassName: 'bg-red-400',
+};
+
+export const Placeholder = Template.bind({});
+Placeholder.args = {
+  size: 12,
+  placeholderIcon: true,
+};
+
+export const Initials = Template.bind({});
+Initials.args = {
+  name: 'Sean Urgel',
+  size: 12,
 };

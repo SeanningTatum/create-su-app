@@ -11,8 +11,9 @@ import type { ButtonProps } from './Button';
 
 const mockProps: ButtonProps = {
   onClick: () => {},
-  appearance: 'default',
   children: 'Hello',
+  size: 'base',
+  type: 'primary',
 };
 
 describe('Button', () => {

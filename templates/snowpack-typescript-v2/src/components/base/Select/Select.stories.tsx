@@ -5,11 +5,11 @@ import type { Story, Meta } from '@storybook/react/types-6-0';
 
 import theme from '@app/config/theme';
 
-import DropdownMenu, { DropdownMenuProps } from './DropdownMenu';
+import Select, { SelectProps } from './Select';
 
 export default {
-  title: 'Base/DropdownMenu',
-  component: DropdownMenu,
+  title: 'Base/Select',
+  component: Select,
 } as Meta;
 
 const people = [
@@ -21,10 +21,10 @@ const people = [
 ];
 
 // Need to manually add theme provider here again. Not sure why.
-const Template: Story<DropdownMenuProps> = (args) => (
+const Template: Story<SelectProps> = (args) => (
   <ThemeProvider theme={theme}>
     <div style={{ width: '300px' }}>
-      <DropdownMenu {...args} />
+      <Select {...args} />
     </div>
   </ThemeProvider>
 );

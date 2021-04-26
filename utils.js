@@ -49,7 +49,6 @@ function checkIfNodeIsValid() {
     console.error(`Please use Node.js v${minimumMajorVersion} or higher.`);
     process.exit(1);
   }
-  
 }
 
 function getTemplateContent(template) {

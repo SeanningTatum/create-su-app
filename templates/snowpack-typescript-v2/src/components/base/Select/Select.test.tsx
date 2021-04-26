@@ -3,11 +3,11 @@ import * as React from 'react';
 import { render } from '@testing-library/react';
 import { expect } from 'chai';
 
-import DropdownMenu from './DropdownMenu';
+import Select from './Select';
 
-describe('<DropdownMenu>', () => {
-  it('renders the DropdownMenu', () => {
-    const { getByText } = render(<DropdownMenu />);
+describe('<Select>', () => {
+  it('renders the Select', () => {
+    const { getByText } = render(<Select />);
     const element = getByText('', { exact: true });
 
     expect(document.body.contains(element));
