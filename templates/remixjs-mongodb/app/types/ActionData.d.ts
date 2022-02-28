@@ -1,6 +1,6 @@
-export interface ActionData<T = any> {
-  fieldErrors?: Record<keyof T, string>
+export interface ActionData<Body = any, Form = any> {
+  fieldErrors?: Record<keyof Form, string>
+  body?: Body;
   message?: string;
-  metadata?: T;
   code?: number;
 }

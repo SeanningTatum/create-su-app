@@ -1,50 +1,48 @@
-import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
+import { User } from '@prisma/client';
 import {
   Link, LoaderFunction, useLoaderData,
 } from 'remix';
-// import { getUser } from '~/utils/session.server';
 import Button from '~/components/Base/Button';
-import { db } from '~/utils/db.server';
+import { getUser } from '~/utils/session.server';
 
-// export const loader: LoaderFunction = async ({ request }) => {
-//   try {
-//     const user = await db.user.create({
-//       data: {
-//         email: 'seantheurgel@gmail.com',
-//         username: 'SeanningTatum',
-//       },
-//     });
+export const loader: LoaderFunction = async ({ request }) => {
+  const user = await getUser(request);
 
-//     if (!user) {
-//       // we know we can't render the component
-//       // so throw immediately to stop executing code
-//       // and show the not found page
-//       throw new Response('Not Found', { status: 404 });
-//     }
+  // if (user) {
+  //   return redirect('/dashboard/reports/new-report');
+  // }
 
-//     return { user };
-//   } catch (error) {
-//     if (error instanceof PrismaClientKnownRequestError) {
-//       if (error.code === 'P2002') {
-//         return { error: { message: 'Email already exists!', code: 409 } };
-//       }
-//     }
-
-//     return { error };
-//   }
-// };
+  return { user };
+};
 
 function IndexRoute() {
-  // const { user, error } = useLoaderData();
+  const { user } = useLoaderData<{ user: User }>();
 
   return (
-    <div>
-      <h1>This is Home</h1>
-      <Link to="/login">
-        <Button>
-          Go to Login
-        </Button>
-      </Link>
+    <div className="h-screen w-screen flex justify-center items-center flex-col">
+      <h1 className="mb-2">This is Home</h1>
+
+      <div className="flex space-x-4">
+        <Link to="/login">
+          <Button>
+            Go to Login
+          </Button>
+        </Link>
+
+        <Link to="/register">
+          <Button>
+            Go to Register
+          </Button>
+        </Link>
+      </div>
+
+      <h3>{!user ? 'You are not logged in' : `You are logged in as ${user.email}`}</h3>
+
+      {user && (
+        <form method="post" action="/logout">
+          <Button type="submit">Logout</Button>
+        </form>
+      )}
 
     </div>
   );
